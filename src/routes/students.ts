@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { createStudent } from '../middelwares/students';
+import { createStudent, getStudents, getOneStudent } from '../middelwares/students';
 
 import {
   checkEmail, checkPssword, checkFullName, validateInput,
@@ -11,7 +11,12 @@ import { errorHandling } from '../middelwares/errorFunction';
 const router = Router();
 
 // 1 create new student
-
 router.post('/', checkEmail, checkPssword, checkFullName, validateInput, errorHandling(createStudent));
+
+// 2 get all students
+router.get('/', getStudents);
+
+// 2 get one students
+router.get('/:id', getOneStudent);
 
 export const studentRoute: Router = router;
