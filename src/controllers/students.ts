@@ -7,6 +7,11 @@ type NewStudent = {
   email: String
 };
 
+type UpdateStudent = {
+  email? : string,
+  fullName?: string
+};
+
 // 1. create new speaker
 const create = (data: NewStudent) => Student.create(data);
 
@@ -16,4 +21,9 @@ const getAll = () => Student.find();
 // 3. get one student
 const getOne = (data: string) => Student.findOne({ _id: data });
 
-export { create, getAll, getOne };
+// 4. update student
+const updateOne = (email: string, data: UpdateStudent) => Student.updateOne({ email }, data);
+
+export {
+  create, getAll, getOne, updateOne,
+};

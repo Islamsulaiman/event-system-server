@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
-import { create, getAll, getOne } from '../controllers/students';
+import {
+  create, getAll, getOne, updateOne,
+} from '../controllers/students';
 
 dotenv.config();
 
@@ -31,4 +33,29 @@ const getOneStudent = async (req: Request, res: Response) => {
   return res.status(200).json(oneStudent);
 };
 
-export { createStudent, getStudents, getOneStudent };
+type UpdateStudent = {
+  email? : string,
+  fullName?: string
+};
+
+const updateOneStudent = async (req: Request, res: Response) => {
+  const updateObject: UpdateStudent = {};
+
+  if (!req.body.email) {
+    throw new Error('Enter email to update');
+  }
+
+  const { email } = req.body;
+
+  if (req.body.fullName) {
+    updateObject.fullName = req.body.fullName;
+  }
+
+  const student = await updateOne(email, updateObject);
+
+  return res.status(200).json(student);
+};
+
+export {
+  createStudent, getStudents, getOneStudent, updateOneStudent,
+};
