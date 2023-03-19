@@ -22,6 +22,6 @@ router.get('/', getStudents);
 router.get('/:id', getOneStudent);
 
 // 4 update one userData
-router.patch('/', updateOneStudent);
+router.patch('/', checkEmail, checkFullName, validateInput, errorHandling(updateOneStudent));
 
 export const studentRoute: Router = router;

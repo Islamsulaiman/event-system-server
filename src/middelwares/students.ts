@@ -39,16 +39,23 @@ type UpdateStudent = {
 };
 
 const updateOneStudent = async (req: Request, res: Response) => {
+  console.log('no start');
   const updateObject: UpdateStudent = {};
 
   if (!req.body.email) {
     throw new Error('Enter email to update');
   }
-
+  console.log('no 0');
   const { email } = req.body;
 
+  console.log('no 1');
   if (req.body.fullName) {
     updateObject.fullName = req.body.fullName;
+  }
+  console.log('no 2');
+
+  if (Object.keys(updateObject).length === 0) {
+    throw new Error('Please enter data to update!');
   }
 
   const student = await updateOne(email, updateObject);

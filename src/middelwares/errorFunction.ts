@@ -14,11 +14,6 @@ const errorFunction = (err:Error, req: Request, res: Response, next: NextFunctio
     res.status(400).json({ 'Error Massage': 'Please enter a vailid Name ' });
   }
 
-  // else if (err.message.substring(0, 6) === 'E11000') {
-  //   console.log(err.message);
-  // }
-  // console.log(err.message.substring(0, 6));
-
   next();
 };
 
