@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import {
-  create, getAll, getOne, updateOne,
+  create, getAll, getOne, updateOne, deleteOne,
 } from '../controllers/students';
 
 dotenv.config();
@@ -39,20 +39,16 @@ type UpdateStudent = {
 };
 
 const updateOneStudent = async (req: Request, res: Response) => {
-  console.log('no start');
   const updateObject: UpdateStudent = {};
 
   if (!req.body.email) {
     throw new Error('Enter email to update');
   }
-  console.log('no 0');
   const { email } = req.body;
 
-  console.log('no 1');
   if (req.body.fullName) {
     updateObject.fullName = req.body.fullName;
   }
-  console.log('no 2');
 
   if (Object.keys(updateObject).length === 0) {
     throw new Error('Please enter data to update!');
@@ -63,6 +59,14 @@ const updateOneStudent = async (req: Request, res: Response) => {
   return res.status(200).json(student);
 };
 
+const deleteStudent = async (req: Request, res: Response) => {
+  const { email } = req.query;
+  console.log(email);
+  const student = await deleteOne(email);
+
+  res.json(student);
+};
+
 export {
-  createStudent, getStudents, getOneStudent, updateOneStudent,
+  createStudent, getStudents, getOneStudent, updateOneStudent, deleteStudent,
 };

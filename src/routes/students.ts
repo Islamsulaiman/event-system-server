@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import {
-  createStudent, getStudents, getOneStudent, updateOneStudent,
+  createStudent, getStudents, getOneStudent, updateOneStudent, deleteStudent,
 } from '../middelwares/students';
 
 import {
@@ -23,5 +23,8 @@ router.get('/:id', getOneStudent);
 
 // 4 update one userData
 router.patch('/', checkEmail, checkFullName, validateInput, errorHandling(updateOneStudent));
+
+// 5 delete student
+router.delete('/', deleteStudent);
 
 export const studentRoute: Router = router;
