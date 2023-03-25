@@ -61,7 +61,6 @@ const updateOneStudent = async (req: Request, res: Response) => {
 
 const deleteStudent = async (req: Request, res: Response) => {
   const { email } = req.query;
-  console.log(email);
   const student = await deleteOne(email);
 
   res.json(student);

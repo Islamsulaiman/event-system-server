@@ -27,6 +27,11 @@ const updateOne = (email: string, data: UpdateStudent) => Student.updateOne({ em
 // 5. delete student
 const deleteOne = (email: any) => Student.deleteOne({ email });
 
+// 6 login, return hashed password
+const login = (email:string) => {
+  Student.findOne({ email });
+};
+
 export {
-  create, getAll, getOne, updateOne, deleteOne,
+  create, getAll, getOne, updateOne, deleteOne, login,
 };
