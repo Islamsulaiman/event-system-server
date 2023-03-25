@@ -29,7 +29,8 @@ const deleteOne = (email: any) => Student.deleteOne({ email });
 
 // 6 login, return hashed password
 const login = (email:string) => {
-  Student.findOne({ email });
+  const student = Student.findOne({ email });
+  return student;
 };
 
 export {
