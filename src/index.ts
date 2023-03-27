@@ -8,7 +8,7 @@ import { errorFunction } from './middelwares/errorFunction';
 // import wrongURl from './middelwares/wrongURl';
 
 // mongoose connection
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/events';
+const mongoUrl = process.env.MONGO_URL as string;
 mongoose.connect(mongoUrl);
 
 dotenv.config();
