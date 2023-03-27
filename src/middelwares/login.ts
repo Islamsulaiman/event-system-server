@@ -1,29 +1,28 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
-import * as jwt from 'jsonwebtoken';
 import { login } from '../controllers/students';
+import { compareUserData, generateJWT } from './authuntication';
 
 dotenv.config();
-
-const compareUserData = (userEmail, userPassword, DBUser) => {
-  // check if email match
-  if (userEmail !== DBUser.email) throw new Error('Entered data dosnt match!');
-};
 
 const mainLogin = async (req: Request, res: Response) => {
   const { email, password, userProfile } = req.body;
 
   if (userProfile === 'student') {
-    const result = await login(email);
+    const userDataFromDB: any = await login(email);
 
-    if (result === null) {
-      throw new Error('User Not found! check the entred data');
+    if (userDataFromDB === null) {
+      throw new Error('User Not found! check your entred data');
     }
 
     // compare user input data with db data
-    compareUserData(email, password, result);
-
-    console.log(result);
+    const compare = await compareUserData(email, password, userDataFromDB);
+    if (!compare) throw new Error('Email or password dosnt match!, try again');
+    else {
+      // send user a token
+      const token = generateJWT({ id: userDataFromDB.id });
+      res.status(200).json({ 'user token': token });
+    }
   }
   //  else if (userProfile === 'speaker') {
 
