@@ -10,7 +10,7 @@ Promise<boolean> => {
   if (userEmail !== DBUser.email) return false;
 
   // check if password match Db password
-  const result = await bcrypt.compare(userPassword, DBUser.password);
+  const result = await bcrypt.compare(userPassword, DBUser.password); // return bool
   return result;
 };
 

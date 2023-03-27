@@ -2,6 +2,7 @@ import {
   Request, Response, NextFunction,
 } from 'express';
 
+// main error function at the application
 const errorFunction = (err:Error, req: Request, res: Response, next: NextFunction) => {
   if (err.message === 'email') {
     res.status(400).json({ 'Error Massage': 'Please enter a vailid email ' });
@@ -12,11 +13,18 @@ const errorFunction = (err:Error, req: Request, res: Response, next: NextFunctio
     res.status(400).json({ 'Error Massage': 'Please enter a vailid password ' });
   } else if (err.message === 'fullName') {
     res.status(400).json({ 'Error Massage': 'Please enter a vailid Name ' });
+  } else if (err.message === 'User Not found! check your entred data') {
+    res.status(400).json({ 'Error massage': 'User Not found! check your entred data' });
+  } else if (err.message === 'Email or password dosnt match!, try again') {
+    res.status(400).json({ 'Error massage': 'Email or password dosnt match!, try again' });
   }
+
+  console.log(err);
 
   next();
 };
 
+// high level Error wrapper function
 const errorHandling = (fn: Function) => (req: Request, res: Response, next: NextFunction) => {
   Promise.resolve(fn(req, res, next)).catch(next);
 };
