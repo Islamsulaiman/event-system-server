@@ -18,7 +18,7 @@ router.get('/', getStudents);
 // 2 get one students
 router.get('/:id', getOneStudent);
 
-// 3 update one userData
+// 3 update one student Data
 router.patch('/', checkEmail, checkFullName, validateInput, errorHandling(updateOneStudent));
 
 // 4 delete student
