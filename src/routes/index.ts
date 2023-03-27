@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { speakerRoute } from './speakers';
 import { studentRoute } from './students';
+import { eventRoute } from './events';
 
 import { createStudent } from '../middelwares/students';
 
@@ -24,5 +25,6 @@ router.use('/speakers', speakerRoute);
 // 4 router.use(student route)
 router.use('/students', studentRoute);
 // 5 router.use(event route)
+router.use('/events', eventRoute);
 
 export const indexRouter:Router = router;
